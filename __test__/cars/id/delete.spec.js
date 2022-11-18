@@ -4,7 +4,7 @@ const { Car } = require('../../../app/models');
 
 describe('DELETE /v1/cars/:id', () => {
     let token;
-    
+
     beforeAll((done) => {
         request(app)
             .post('/v1/auth/login')

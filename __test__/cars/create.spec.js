@@ -20,8 +20,6 @@ describe('GET /v1/cars', () => {
     });
 
     it('should response with 201 as status code', async () => {
-
-
         const name = 'BMW i4';
         const price = 100000;
         const size = 'Sedan';

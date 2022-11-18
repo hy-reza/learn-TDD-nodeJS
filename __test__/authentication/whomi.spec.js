@@ -20,43 +20,30 @@ describe('GET /v1/auth/whoami', () => {
     });
 
     it('should response with 200 as status code', async () => {
-
-
-        return (
-            request(app)
-                .post('/v1/auth/whoami')
-                .set('Content-Type', 'application/json')
-                .set('Authorization', `Bearer ${token}`)
-                .then((res) => {
-                    expect(res.statusCode).toBe(404);
-                    // expect(res.body).toEqual(
-                    //     expect.objectContaining({
-                    //         user,
-                    //     })
-                    // );
-                })
-        );
+        return request(app)
+            .post('/v1/auth/whoami')
+            .set('Content-Type', 'application/json')
+            .set('Authorization', `Bearer ${token}`)
+            .then((res) => {
+                expect(res.statusCode).toBe(404);
+            });
     });
 
     it('should response with 404 as status code', async () => {
-        // const userParam = { id: 1 };
-
-        return (
-            request(app)
-                .post('/v1/auth/whoami')
-                .set('Content-Type', 'application/json')
-                .then((res) => {
-                    expect(res.statusCode).toBe(404);
-                    expect(res.body).toEqual(
-                        expect.objectContaining({
-                            error: {
-                                details: expect.any(Object),
-                                message: expect.any(String),
-                                name: expect.any(String),
-                            },
-                        })
-                    );
-                })
-        );
+        return request(app)
+            .post('/v1/auth/whoami')
+            .set('Content-Type', 'application/json')
+            .then((res) => {
+                expect(res.statusCode).toBe(404);
+                expect(res.body).toEqual(
+                    expect.objectContaining({
+                        error: {
+                            details: expect.any(Object),
+                            message: expect.any(String),
+                            name: expect.any(String),
+                        },
+                    })
+                );
+            });
     });
 });

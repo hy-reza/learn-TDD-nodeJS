@@ -98,8 +98,6 @@ class CarController extends ApplicationController {
 
             const car = await this.getCarFromRequest(req);
 
-            
-
             await car.update({
                 name,
                 price,
