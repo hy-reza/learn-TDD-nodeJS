@@ -2,18 +2,18 @@ const request = require('supertest');
 const app = require('../../../app');
 const { Car } = require('../../../app/models');
 
-describe('POST /v1/cars/:id/rent', () => {
+describe('PUT /v1/cars/:id', () => {
     let token;
     beforeAll((done) => {
         request(app)
             .post('/v1/auth/login')
             .send({
-                email: 'fikri@binar.co.id',
+                email: 'handy@binar.co.id',
                 password: '123456',
             })
             .expect(201)
             .end((err, res) => {
-                if(err) throw err;
+                if (err) throw err;
                 token = res.body.accessToken;
                 done();
             });
@@ -32,40 +32,43 @@ describe('POST /v1/cars/:id/rent', () => {
     });
     afterEach(() => car.destroy());
 
-    it('should response with 201 as status code', async () => {
-        const rentStartedAt = new Date();
-        const rentEndedAt = new Date();
+    it('should response with 200 as status code', async () => {
+        const name = 'BMW i9';
+        const price = 120000;
+        const size = 'Sedan';
+        const image =
+            'https://www.bmw.co.id/content/dam/bmw/common/all-models/i-series/i4/navigation/bmw-i4-mini-landingpage-modelfinder.png';
 
         return request(app)
-            .post(`/v1/cars/${car.id}/rent`)
+            .put(`/v1/cars/${car.id}`)
             .set('Content-Type', 'application/json')
             .set('Authorization', `Bearer ${token}`)
-            .send({ rentStartedAt, rentEndedAt })
+            .send({ name, price, size, image })
             .then((res) => {
-                expect(res.statusCode).toBe(201);
+                expect(res.statusCode).toBe(200);
                 expect(res.body).toEqual(
                     expect.objectContaining({
-                        carId: expect.any(Number),
-                        createdAt: expect.any(String),
-                        id: expect.any(Number),
-                        rentEndedAt: expect.any(String),
-                        rentStartedAt: expect.any(String),
-                        updatedAt: expect.any(String),
-                        userId: expect.any(Number),
+                        name: expect.any(String),
+                        price: expect.any(Number),
+                        size: expect.any(String),
+                        image: expect.any(String),
+                        isCurrentlyRented: expect.any(Boolean),
                     })
                 );
             });
     });
 
     it('should response with 422 as status code', async () => {
-        const rentStartedAt = new Date();
-        const rentEndedAt = new Date();
+        const name = '';
+        const price = 0;
+        const size = [];
+        const image = null;
 
         return request(app)
-            .post(`/v1/cars/${car.id}/rent`)
+            .put(`/v1/cars/${car.id}`)
             .set('Content-Type', 'application/json')
             .set('Authorization', `Bearer ${token}`)
-            .send({ rentStartedAt, rentEndedAt })
+            .send({ name, price, size, image })
             .then((res) => {
                 expect(res.statusCode).toBe(422);
                 expect(res.body).toEqual(
@@ -73,7 +76,7 @@ describe('POST /v1/cars/:id/rent', () => {
                         error: {
                             name: expect.any(String),
                             message: expect.any(String),
-                        }
+                        },
                     })
                 );
             });

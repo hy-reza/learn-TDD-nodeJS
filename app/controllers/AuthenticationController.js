@@ -25,10 +25,10 @@ class AuthenticationController extends ApplicationController {
     authorize = (rolename) => {
         return (req, res, next) => {
             try {
-                const token = req.headers.authorization?.split('Bearer ')[1];
+                const token = req.headers.authorization?.split(' ')[1];
                 const payload = this.decodeToken(token);
 
-                console.log(token);
+         
 
                 if (!!rolename && rolename != payload.role.name) throw new InsufficientAccessError(payload?.role?.name);
 
@@ -115,7 +115,7 @@ class AuthenticationController extends ApplicationController {
 
     handleGetUser = async (req, res) => {
         const user = await this.userModel.findByPk(req.user.id);
-        console.log(req.user);
+  
 
         if (!user) {
             const err = new RecordNotFoundError(this.userModel.name);

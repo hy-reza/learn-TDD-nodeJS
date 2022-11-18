@@ -49,7 +49,7 @@
       }
     },
     "collectCoverageFrom": [
-      "src/**/*.{js,jsx}"
+      "app/**/*.{js,jsx}"
     ],
     "testTimeout": 15000,
     "verbose": true,

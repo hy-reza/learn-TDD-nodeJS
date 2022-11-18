@@ -4,16 +4,17 @@ const { Car } = require('../../../app/models');
 
 describe('DELETE /v1/cars/:id', () => {
     let token;
+    
     beforeAll((done) => {
         request(app)
             .post('/v1/auth/login')
             .send({
-                email: 'adji@binar.com',
-                password: 'rahasia',
+                email: 'handy@binar.co.id',
+                password: '123456',
             })
             .expect(201)
             .end((err, res) => {
-                if(err) throw err;
+                if (err) throw err;
                 token = res.body.accessToken;
                 done();
             });

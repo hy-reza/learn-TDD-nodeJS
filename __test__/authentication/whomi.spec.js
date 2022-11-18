@@ -21,7 +21,6 @@ describe('GET /v1/auth/whoami', () => {
 
     it('should response with 200 as status code', async () => {
 
-        console.log({token});
 
         return (
             request(app)

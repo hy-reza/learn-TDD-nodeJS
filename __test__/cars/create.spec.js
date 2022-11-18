@@ -8,7 +8,7 @@ describe('GET /v1/cars', () => {
         request(app)
             .post('/v1/auth/login')
             .send({
-                email: 'Jayabaya@binar.co.id',
+                email: 'handy@binar.co.id',
                 password: '123456',
             })
             .expect(201)
@@ -20,7 +20,7 @@ describe('GET /v1/cars', () => {
     });
 
     it('should response with 201 as status code', async () => {
-        console.log({token});
+
 
         const name = 'BMW i4';
         const price = 100000;

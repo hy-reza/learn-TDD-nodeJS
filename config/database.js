@@ -3,7 +3,7 @@ const {
     DB_PASSWORD = 'reza157354',
     DB_NAME = 'challenge8',
     DB_HOST = 'localhost',
-    DB_URL = 'postgresql://postgres:rQjwwK8WbaawRQUfGqdu@containers-us-west-122.railway.app:7625/railway',
+    DB_URL = 'postgresql://postgres:I2RzBEyBgEp2s2QfEANY@containers-us-west-128.railway.app:6634/railway',
     // DB_PORT = "5432",
 } = process.env;
 

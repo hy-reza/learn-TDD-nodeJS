@@ -14,31 +14,26 @@ class CarController extends ApplicationController {
         const limit = req.query.pageSize;
         const query = this.getListQueryFromRequest(req);
         const cars = await this.carModel.findAll(query);
-        const carCount = await this.carModel.count({ where: query.where, include: query.include, });
+        const carCount = await this.carModel.count({ where: query.where, include: query.include });
         const pagination = this.buildPaginationObject(req, carCount);
 
         res.status(200).json({
             cars,
             meta: {
                 pagination,
-            }
+            },
         });
     };
 
     handleGetCar = async (req, res) => {
-        const car = await this.getCarFromRequest(req); 
+        const car = await this.getCarFromRequest(req);
 
         res.status(200).json(car);
     };
 
     handleCreateCar = async (req, res) => {
         try {
-            const {
-                name,
-                price,
-                size,
-                image,
-            } = req.body;
+            const { name, price, size, image } = req.body;
 
             const car = await this.carModel.create({
                 name,
@@ -49,14 +44,12 @@ class CarController extends ApplicationController {
             });
 
             res.status(201).json(car);
-        }
-
-        catch(err) {
+        } catch (err) {
             res.status(422).json({
                 error: {
                     name: err.name,
                     message: err.message,
-                }
+                },
             });
         }
     };
@@ -75,9 +68,9 @@ class CarController extends ApplicationController {
                         [Op.gte]: rentStartedAt,
                     },
                     rentEndedAt: {
-                        [Op.lte]: rentEndedAt, 
-                    }
-                }
+                        [Op.lte]: rentEndedAt,
+                    },
+                },
             });
 
             if (activeRent) {
@@ -94,23 +87,18 @@ class CarController extends ApplicationController {
             });
 
             res.status(201).json(userCar);
-        }
-
-        catch(err) {
+        } catch (err) {
             next(err);
         }
     };
 
     handleUpdateCar = async (req, res) => {
         try {
-            const {
-                name,
-                price,
-                size,
-                image,
-            } = req.body;
+            const { name, price, size, image } = req.body;
 
-            const car = this.getCarFromRequest(req);
+            const car = await this.getCarFromRequest(req);
+
+            
 
             await car.update({
                 name,
@@ -121,14 +109,12 @@ class CarController extends ApplicationController {
             });
 
             res.status(200).json(car);
-        }
-
-        catch(err) {
+        } catch (err) {
             res.status(422).json({
                 error: {
                     name: err.name,
                     message: err.message,
-                }
+                },
             });
         }
     };
@@ -157,8 +143,8 @@ class CarController extends ApplicationController {
         if (availableAt) {
             include.where = {
                 rentEndedAt: {
-                    [Op.gte]: availableAt, 
-                }
+                    [Op.gte]: availableAt,
+                },
             };
         }
 
