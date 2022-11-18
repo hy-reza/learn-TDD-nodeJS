@@ -1,6 +1,6 @@
 const {
     DB_USER = 'postgres',
-    DB_PASSWORD = 'reza157354',
+    DB_PASSWORD = 'urpass',
     DB_NAME = 'challenge8',
     DB_HOST = 'localhost',
     DB_URL = 'postgresql://postgres:I2RzBEyBgEp2s2QfEANY@containers-us-west-128.railway.app:6634/railway',
